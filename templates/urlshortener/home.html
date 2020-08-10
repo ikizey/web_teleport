@@ -5,7 +5,7 @@
 {% block content %}
 
 {% for url in urls %}
-<p><i>{{ url.short_url }}</i> -> <a href="{{ url.full_url }}">{{ url.full_url }}</a></p>
+<p><i>{{ url.short_url }}</i> -> <a href="{% url 'teleport' url.short_url %}">{{ url.full_url }}</a></p>
 {% endfor %}
 
 {% endblock content %}
