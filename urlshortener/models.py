@@ -6,10 +6,10 @@ class ShortenedUrls(models.Model):
     Default len of random short_url == 6, custom urls will be suffixed with additional '-' """
 
     short_url = models.CharField(max_length=7, unique=True, null=False)
-    full_url = models.CharField(max_length=1024, null=False, editable=False)
+    full_url = models.CharField(max_length=1024, null=False)
     created = models.DateTimeField(auto_now_add=True, null=False)
     redirects = models.IntegerField(default=0, null=False)
-    last_redirect = models.DateTimeField(null=True)
+    last_redirect = models.DateTimeField(null=True, blank=True)
 
     def str_full_url(self) -> str:
         """Truncates full_url if too long."""
