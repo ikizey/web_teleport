@@ -28,7 +28,7 @@ class CreateShortUrlForm(forms.Form):
 
     def save(self, commit=True):
         full_url = self.cleaned_data['url']
-        short_url = generate_short_url(ShortenedUrls.get_set_of.short_url())
+        short_url = generate_short_url(ShortenedUrls.get_set_of.short_urls())
         url_obj = ShortenedUrls(short_url=short_url, full_url=full_url)
         if commit:
             url_obj.save()
