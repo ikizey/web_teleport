@@ -1,3 +1,4 @@
+from datetime import datetime as dt
 from django.db import models
 
 
@@ -64,3 +65,6 @@ class ShortenedUrls(models.Model):
 
     def increase_redirects(self) -> None:
         self.redirects += 1
+
+    def set_last_redirect(self) -> None:
+        self.last_redirect = dt.now()
