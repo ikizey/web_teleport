@@ -3,4 +3,4 @@
 /.vscode
 /.DStore
 *.sqlite3
-
+settings_private.py
