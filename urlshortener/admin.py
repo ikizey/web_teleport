@@ -1,3 +1,9 @@
 from django.contrib import admin
 
-# Register your models here.
+from .models import ShortenedUrls
+
+
+@admin.register(ShortenedUrls)
+class ShortenedUrlsAdmin(admin.ModelAdmin):
+    readonly_fields = ('full_url',)
+    search_fields = ('full_url',)
