@@ -1,6 +1,8 @@
 from django.shortcuts import redirect, render, get_object_or_404
 
 from .models import ShortenedUrls
+from .forms import CreateShortUrlForm
+from .urlgenerator import generate_short_url
 
 
 def home(request):
@@ -22,5 +24,15 @@ def teleport(_, url):
 
 def create_url(request):
     """Form to add urls"""
-    return render(request, 'urlshortener/create_url.html')
+    template_name = 'urlshortener/create_url.html'
+    form = CreateShortUrlForm()
+    if request.method == 'POST':
+        form = CreateShortUrlForm(request.POST)
+        if form.is_valid():
+            full_url = form.cleaned_data['url']
+            if not ShortenedUrls.has.full_url(full_url):
+                short_url = generate_short_url(ShortenedUrls.get_set_of.short_urls())
+                ShortenedUrls.objects.create(short_url=short_url, full_url=full_url)
 
+    context = {'form': form}
+    return render(request, template_name, context)

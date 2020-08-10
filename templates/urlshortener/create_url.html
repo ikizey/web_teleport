@@ -3,5 +3,10 @@
 {% block title %}Url shortener{% endblock title %}
 
 {% block content %}
-<h1>Create URL Page</h1>
+
+<form action="{% url 'create_url' %}" method="POST">{% csrf_token %}
+    {{ form.as_p }}
+    <input type="submit" value="Create shorten version">
+</form>
+
 {% endblock content %}
