@@ -3,5 +3,9 @@
 {% block title %}Url shortener{% endblock title %}
 
 {% block content %}
-<h1>Home Page</h1>
+
+{% for url in urls %}
+<p><i>{{ url.short_url }}</i> -> <a href="{{ url.full_url }}">{{ url.full_url }}</a></p>
+{% endfor %}
+
 {% endblock content %}
