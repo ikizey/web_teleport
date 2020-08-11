@@ -30,6 +30,7 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
+WEBSITE_BASE_URLS = ("http://localhost", "https://localhost")
 
 # Application definition
 

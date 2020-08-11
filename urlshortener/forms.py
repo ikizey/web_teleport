@@ -1,19 +1,8 @@
 from django import forms
-from django.core.exceptions import ValidationError
 
 from .models import ShortenedUrls
 from .urlgenerator import generate_label, generate_placeholder, generate_short_url
-
-
-def validate_full_url_is_new(url):
-    """Validator for full url.
-
-    passes if urls doesn't exist
-    """
-    if not ShortenedUrls.has.full_url(url):
-        return True
-    else:
-        raise ValidationError("%(url) already has teleport.", params={'url': url})
+from .validators import validate_full_url_is_new, validate_full_url_is_external
 
 
 class CreateShortUrlForm(forms.Form):
@@ -22,8 +11,10 @@ class CreateShortUrlForm(forms.Form):
     url = forms.URLField(
         max_length=1024,
         label=generate_label(),
-        widget=forms.TextInput(attrs={'placeholder': generate_placeholder()}),
-        validators=(validate_full_url_is_new,),
+        widget=forms.TextInput(
+            attrs={'placeholder': generate_placeholder(), 'size': 64}
+        ),
+        validators=(validate_full_url_is_new, validate_full_url_is_external),
     )
 
     def save(self, commit=True):
